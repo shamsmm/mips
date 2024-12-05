@@ -1,5 +1,5 @@
 module mips(
-input rst, clk
+    input rst, clk
 );
 
 wire [31:0] pc_out, pc_next;
