@@ -1,11 +1,13 @@
 module alu(
-    output[31:0] out,
+    output reg [31:0] out,
     output out_zero,
-    input[31:0] a, b,
-    input[1:0] control_bus,
+    input [31:0] a, b,
+    input [1:0] control_bus,
     input [5:0] funct,
-    input [4:0] shamt,
+    input [4:0] shamt
 );
+
+assign out_zero = out == 0;
 
 always @(control_bus, a, b)
     case(control_bus)
