@@ -1,4 +1,4 @@
-FILES = $(wildcard *.v)
+FILES = $(wildcard src/*.v)
 
 all: visualize
 
