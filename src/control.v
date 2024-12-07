@@ -4,26 +4,27 @@
 `define addi 8
 `define beq 4
 
-`define RegDst 8
-`define ALUSrc 7
-`define MemToReg 6
-`define RegWrite 5
-`define MemRead 4
-`define MemWrite 3
-`define Branch 2
-`define ALUop 1
+`define RegDst 9
+`define ALUSrc 8
+`define MemToReg 7
+`define RegWrite 6
+`define MemRead 5
+`define MemWrite 4
+`define Branch 3
+`define ALUop1 2
+`define ALUop0 1
 `define Jump 0
 
 
-module control(output reg [8:0] control_bus, input [31:26] op);
+module control(output reg [9:0] control_bus, input [31:26] op);
 
 always @(op)
     case(op)
-        `lw: control_bus = 9'b01111_0000;
-        `sw: control_bus = 9'b0100_01000;
-        `r: control_bus = 9'b1001_00010;
-        `addi: control_bus = 9'b01010_0000;
-        `beq: control_bus = 9'b0000_00101;
+        `lw: control_bus = 10'b01111_00000;
+        `sw: control_bus = 10'b0100_010000;
+        `r: control_bus = 10'b1001_000100;
+        `addi: control_bus = 10'b01010_00000;
+        `beq: control_bus = 10'b0000_001001;
     endcase
 
 endmodule

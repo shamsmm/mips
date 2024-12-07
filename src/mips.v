@@ -23,10 +23,12 @@ wire [31:0] lsl2_imm;
 
 
 // RegDst(8) Jump(7) Branch(6) MemRead(5) MemtoReg(4) ALUop(3) MemWrite(2) ALUsrc(1) RegWrite(0)
-wire [8:0] control_bus;
+wire [9:0] control_bus;
 
 assign rf_read_reg1 = i_mem_out[25:21];
 assign rf_read_reg2 = i_mem_out[20:16];
+
+assign alu_control_bus = {control_bus[`ALUop1], control_bus[`ALUop0]};
 
 pc mips_pc(pc_out, rst, clk, pc_in);
 i_memory mips_i_mem(i_mem_out, pc_out);
@@ -45,6 +47,7 @@ and mips_pc_in_mux0_src(pc_in_mux0_src, control_bus[`Branch], alu_out_zero);
 
 signextend mips_sign_extended_imm(sign_extended_imm, i_mem_out[15:0]);
 lsl2 #(26) mips_lsl2_imm(lsl2_imm, i_mem_out[25:0]);
+lsl2 #(32) mips_lsl2_sign_extended_imm(lsl2_sign_extended_imm, sign_extended_imm);
 
 adder mips_pc_next_adder(pc_next, pc_out, 4);
 adder mips_pc_relative_adder(pc_relative_alu_out, pc_next, lsl2_sign_extended_imm);
