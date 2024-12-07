@@ -8,7 +8,7 @@ visualize: simulate
 simulate: compile
 	vvp test.vvp -fst
 
-compile:
+compile: assemble
 	iverilog -otest.vvp test/tb.v $(FILES)
 
 assemble:
