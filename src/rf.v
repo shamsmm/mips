@@ -8,7 +8,7 @@ module rf(
     input write, rst, clk
 );
 
-reg [31:0] data [4:0];
+reg [31:0] data [31:0];
 
 assign reg1_data = data[read_reg1];
 assign reg2_data = data[read_reg2];
