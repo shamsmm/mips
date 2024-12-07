@@ -26,11 +26,11 @@ wire [31:0] lsl2_imm;
 wire [8:0] control_bus;
 
 pc mips_pc(pc_out, rst, clk, pc_in);
-memory mips_i_mem(i_mem_out, pc_out);
+i_memory mips_i_mem(i_mem_out, pc_out);
 rf mips_rf(rf_read_reg1_data, rf_read_reg2_data, rf_read_reg1, rf_read_reg2, rf_write_reg, rf_write_data, control_bus[`RegWrite], rst, clk);
 control mips_control(control_bus, i_mem_out[31:26]);
 alu mips_alu(alu_out, alu_out_zero, rf_read_reg1_data, alu_rf_read_reg, alu_control_bus, i_mem_out[5:0], i_mem_out[10:6]);
-memory mips_d_mem(alu_out, d_mem_out);
+d_memory mips_d_mem(alu_out, rf_read_reg1_data, clk, control_bus[`MemWrite], d_mem_out);
 
 mux #(5) mips_write_reg_mux(rf_write_reg, control_bus[`RegDst], i_mem_out[20:16], i_mem_out[15:11]);
 mux #(32) mips_alu_read_reg_mux(alu_rf_read_reg, control_bus[`ALUSrc], rf_read_reg2_data, sign_extended_imm);

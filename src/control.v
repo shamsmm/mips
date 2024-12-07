@@ -2,6 +2,7 @@
 `define sw 43
 `define r 0
 `define addi 8
+`define beq 4
 
 `define RegDst 8
 `define ALUSrc 7
@@ -22,6 +23,7 @@ always @(op)
         `sw: control_bus = 9'b0100_01000;
         `r: control_bus = 9'b1001_00010;
         `addi: control_bus = 9'b01010_0000;
+        `beq: control_bus = 9'b0000_00101;
     endcase
 
 endmodule
