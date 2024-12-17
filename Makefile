@@ -9,7 +9,10 @@ simulate: compile
 	vvp test.vvp -fst
 
 compile: assemble
-	iverilog -otest.vvp test/tb.v $(FILES)
+	iverilog -g2005-sv -otest.vvp test/tb.v $(FILES)
+
+compile-c:
+	mips64-linux-gnu-gcc -mmicromips -mabi=32 -S asm/main.c -o test_compiled.s
 
 assemble:
 	mips64-linux-gnu-as -mips32 -mabi=32 asm/test.asm -o test.elf
