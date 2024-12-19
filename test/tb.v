@@ -24,10 +24,10 @@ initial begin
 
     toggle_rst();
 
-    $readmemh("test/irom.txt", dut.mips_i_mem.mem, 0, 7);
-    $readmemh("test/dram.txt", dut.mips_d_mem.mem, 0, 1);
+    $readmemh("test/irom.txt", dut.mips_i_mem.mem, 0, 15);
+    $readmemh("test/dram.txt", dut.mips_d_mem.mem, 0, 19);
 
-    #500;
+    #5000;
     $finish;
 end
 

@@ -15,7 +15,7 @@ compile-c:
 	mips64-linux-gnu-gcc -mmicromips -mabi=32 -S asm/main.c -o test_compiled.s
 
 assemble:
-	mips64-linux-gnu-as -mips32 -mabi=32 asm/test.asm -o test.elf
+	mips64-linux-gnu-as -O0 -mips32 -mabi=32 asm/test.asm -o test.elf
 	mips64-linux-gnu-objcopy -O binary -j .text test.elf irom.bin
 	xxd -c 4 -p irom.bin > test/irom.txt
 
