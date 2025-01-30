@@ -1,4 +1,6 @@
 module mips (
+    output [31:0] debug_data,
+    input [31:0] debug_address,
     input rst,
     input clk
 );
@@ -72,10 +74,12 @@ module mips (
 
     d_memory mips_d_mem (
         .data(d_mem_out),
+        .debug_data(debug_data),
         .write_data(rf_read_reg2_data),
         .clk(clk),
         .write(control_bus[`MemWrite]),
-        .address(alu_out)
+        .address(alu_out),
+        .debug_address(debug_address)
     );
 
     mux #(5) mips_write_reg_mux (

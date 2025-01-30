@@ -31,6 +31,8 @@ initial begin
     $finish;
 end
 
-mips dut(rst, clk);
+wire [31:0] debug_data;
+
+mips dut(debug_data, 8, rst, clk);
 
 endmodule
