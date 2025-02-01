@@ -21,7 +21,9 @@ module rf #(
 
     always @(posedge clk or negedge rst)
         if (!rst) begin
-            for (i = 1; i < 32; i = i + 1) data[i] <= 0;
+            for (i = 1; i < 29; i = i + 1) data[i] <= 0;
             data[29] <= SP_INITIAL;
+            data[30] <= 0;
+            data[31] <= 0;
         end else if (write) data[write_reg] <= write_data;
 endmodule

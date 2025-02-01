@@ -19,8 +19,7 @@ always @(posedge clk or negedge sys_rst_n)
     if (~sys_rst_n)
         led <= 0;
     else
-        //if (d_memory_write && d_memory_address == LED_OUT_ADDRESS)  
-            led <= ~(i_memory_data[5:0]);
+        if (d_memory_write) led <= ~{d_memory_write_data[5:0]};
 
 // Clock divider chain to bring down 27MHz to roughly 1.6Hz
 Gowin_CLKDIV div1(clk8, sys_clk, sys_rst_n);
@@ -29,10 +28,7 @@ Gowin_CLKDIV div3(clk512, clk64, sys_rst_n);
 Gowin_CLKDIV div4(clk4096, clk512, sys_rst_n);
 Gowin_CLKDIV div5(clk32786, clk4096, sys_rst_n);
 Gowin_CLKDIV div6(clk262144, clk32786, sys_rst_n);
-Gowin_CLKDIV div7(clk2097152, clk262144, sys_rst_n);
-Gowin_CLKDIV div8(clk, clk2097152, sys_rst_n);
-
-`unconnected_drive pull0
+Gowin_CLKDIV div7(clk, clk262144, sys_rst_n);
 
 // SRAM Block
 Gowin_SP d_memory(
