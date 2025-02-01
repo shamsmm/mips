@@ -5,20 +5,29 @@
     <Version>5</Version>
     <Device name="GW1NR-9C" pn="GW1NR-LV9QN88PC6/I5">gw1nr9c-004</Device>
     <FileList>
+        <File path="fpga/gowin_clkdiv/gowin_clkdiv.v" type="file.verilog" enable="1"/>
+        <File path="fpga/gowin_prom/gowin_prom.v" type="file.verilog" enable="1"/>
+        <File path="fpga/gowin_ram16s/gowin_ram16s.v" type="file.verilog" enable="1"/>
         <File path="fpga/top.v" type="file.verilog" enable="1"/>
         <File path="src/adder.v" type="file.verilog" enable="1"/>
         <File path="src/alu.v" type="file.verilog" enable="1"/>
         <File path="src/control.v" type="file.verilog" enable="1"/>
-        <File path="src/gowin_clkdiv/gowin_clkdiv.v" type="file.verilog" enable="1"/>
-        <File path="src/gowin_prom/gowin_prom.v" type="file.verilog" enable="1"/>
-        <File path="src/gowin_ram16s/gowin_ram16s.v" type="file.verilog" enable="1"/>
-        <File path="src/gowin_sp/gowin_sp.v" type="file.verilog" enable="1"/>
         <File path="src/lsl2.v" type="file.verilog" enable="1"/>
         <File path="src/mips_core.v" type="file.verilog" enable="1"/>
-        <File path="src/mux.v" type="file.verilog" enable="1"/>
         <File path="src/pc.v" type="file.verilog" enable="1"/>
         <File path="src/rf.v" type="file.verilog" enable="1"/>
         <File path="src/signextend.v" type="file.verilog" enable="1"/>
-        <File path="src/mips.cst" type="file.cst" enable="1"/>
+        <File path="fpga/mips.cst" type="file.cst" enable="1"/>
+        <File path="fpga/dram.mi" type="file.other" enable="1"/>
+        <File path="fpga/gowin_clkdiv/gowin_clkdiv.ipc" type="file.other" enable="1"/>
+        <File path="fpga/gowin_clkdiv/gowin_clkdiv.mod" type="file.other" enable="1"/>
+        <File path="fpga/gowin_prom/gowin_prom.ipc" type="file.other" enable="1"/>
+        <File path="fpga/gowin_prom/gowin_prom.mod" type="file.other" enable="1"/>
+        <File path="fpga/gowin_ram16s/gowin_ram16s.ipc" type="file.other" enable="1"/>
+        <File path="fpga/gowin_ram16s/gowin_ram16s.mod" type="file.other" enable="1"/>
+        <File path="fpga/irom.mi" type="file.other" enable="1"/>
     </FileList>
+    <BinFileList>
+        <BinFile path="irom.bin" type="file.bin" enable="1"/>
+    </BinFileList>
 </Project>
