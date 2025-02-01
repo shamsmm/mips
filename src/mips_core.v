@@ -1,6 +1,12 @@
-module mips (
-    output [31:0] debug_data,
-    input [31:0] debug_address,
+module mips_core #(
+    int SP_INITIAL = 24
+) (
+    output [31:0] i_memory_address,
+    output [31:0] d_memory_address,
+    output [31:0] d_memory_write_data,
+    output d_memory_write,
+    input [31:0] i_memory_data,
+    input [31:0] d_memory_data,
     input rst,
     input clk
 );
@@ -40,10 +46,8 @@ module mips (
         .pc_in(pc_in)
     );
 
-    i_memory mips_i_mem (
-        .data(i_mem_out),
-        .address(pc_out)
-    );
+    assign i_mem_out = i_memory_data;
+    assign i_memory_address = pc_out;
 
     rf mips_rf (
         .reg1_data(rf_read_reg1_data),
@@ -72,15 +76,10 @@ module mips (
         .shamt(i_mem_out[10:6])
     );
 
-    d_memory mips_d_mem (
-        .data(d_mem_out),
-        .debug_data(debug_data),
-        .write_data(rf_read_reg2_data),
-        .clk(clk),
-        .write(control_bus[`MemWrite]),
-        .address(alu_out),
-        .debug_address(debug_address)
-    );
+    assign d_mem_out = d_memory_data;
+    assign d_memory_address = alu_out;
+    assign d_memory_write_data = rf_read_reg2_data;
+    assign d_memory_write = control_bus[`MemWrite];
 
     mux #(5) mips_write_reg_mux (
         .out(rf_write_reg),
@@ -124,12 +123,18 @@ module mips (
         .in (i_mem_out[15:0])
     );
 
-    lsl2 #(.N(26), .M(28)) mips_lsl2_imm (
+    lsl2 #(
+        .N(26),
+        .M(28)
+    ) mips_lsl2_imm (
         .out(lsl2_imm),
         .in (i_mem_out[25:0])
     );
 
-    lsl2 #(.N(32), .M(32)) mips_lsl2_sign_extended_imm (
+    lsl2 #(
+        .N(32),
+        .M(32)
+    ) mips_lsl2_sign_extended_imm (
         .out(lsl2_sign_extended_imm),
         .in (sign_extended_imm)
     );

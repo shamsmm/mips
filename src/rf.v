@@ -1,4 +1,6 @@
-module rf (
+module rf #(
+    parameter int SP_INITIAL = 24
+) (
     output [31:0] reg1_data,
     output [31:0] reg2_data,
     input [4:0] read_reg1,
@@ -18,7 +20,8 @@ module rf (
     integer i;
 
     always @(posedge clk or negedge rst)
-        if (!rst) for (i = 0; i < 32; i = i + 1) data[i] <= 0;
-        else if (write) data[write_reg] <= write_data;
-
+        if (!rst) begin
+            for (i = 1; i < 32; i = i + 1) data[i] <= 0;
+            data[29] <= SP_INITIAL;
+        end else if (write) data[write_reg] <= write_data;
 endmodule

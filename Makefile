@@ -1,4 +1,5 @@
 FILES = $(wildcard src/*.v)
+FILES += test/d_memory.v test/i_memory.v
 
 all: visualize
 
