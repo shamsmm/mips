@@ -10,7 +10,7 @@ module alu (
 
     assign zero = out == 0;
 
-    always @(control_bus, a, b)
+    always @(control_bus, a, b, funct, shamt)
         case (control_bus)
             2'b00: out = a + b;
             2'b01: out = a - b;

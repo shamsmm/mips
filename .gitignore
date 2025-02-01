@@ -3,3 +3,4 @@ test.fst
 test.elf
 irom.bin
 impl
+src/gowin*
