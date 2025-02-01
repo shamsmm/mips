@@ -81,42 +81,12 @@ module mips_core #(
     assign d_memory_write_data = rf_read_reg2_data;
     assign d_memory_write = control_bus[`MemWrite];
 
-    mux #(5) mips_write_reg_mux (
-        .out(rf_write_reg),
-        .s  (control_bus[`RegDst]),
-        .a  (i_mem_out[20:16]),
-        .b  (i_mem_out[15:11])
-    );
-
-    mux #(32) mips_alu_read_reg_mux (
-        .out(alu_rf_read_reg),
-        .s  (control_bus[`ALUSrc]),
-        .a  (rf_read_reg2_data),
-        .b  (sign_extended_imm)
-    );
-
-    mux #(32) mips_rf_write_data_mux (
-        .out(rf_write_data),
-        .s  (control_bus[`MemToReg]),
-        .a  (alu_out),
-        .b  (d_mem_out)
-    );
-
-    mux #(32) mips_pc_in_mux (
-        .out(pc_in),
-        .s  (control_bus[`Jump]),
-        .a  (pc_in0),
-        .b  ({pc_next[31:28], lsl2_imm})
-    );
-
-    mux #(32) mips_pc_in_mux0 (
-        .out(pc_in0),
-        .s  (pc_in_mux0_src),
-        .a  (pc_next),
-        .b  (pc_relative_alu_out)
-    );
-
-    and mips_pc_in_mux0_src (pc_in_mux0_src, control_bus[`Branch], alu_out_zero);
+    assign rf_write_reg = control_bus[`RegDst] ? i_mem_out[15:11] : i_mem_out[20:16];
+    assign alu_rf_read_reg = control_bus[`ALUSrc] ? sign_extended_imm : rf_read_reg2_data;
+    assign rf_write_data = control_bus[`MemToReg] ? d_mem_out : alu_out;
+    assign pc_in = control_bus[`Jump] ? {pc_next[31:28], lsl2_imm} : pc_in0;
+    assign pc_in0 = pc_in_mux0_src ? pc_relative_alu_out : pc_next;
+    assign pc_in_mux0_src = control_bus[`Branch] & alu_out_zero;
 
     signextend mips_sign_extended_imm (
         .out(sign_extended_imm),
